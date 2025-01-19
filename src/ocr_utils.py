@@ -149,28 +149,12 @@ if __name__ == "__main__":
         "no_git_oic/fig2.jpg",
         "no_git_oic/Snipaste_2025-01-19_12-26-16.png",
     ]
-    test_id = 1
+    test_id = 0
     start_time = time.time()
     ocr_engine = RapidOCR()
     end_time = time.time()
     elapsed_time = end_time - start_time
     logger.info(colored(f"初始化模型耗时: {elapsed_time:.2f}秒", "green"))
-
-    start_time = time.time()
-    rapid_ocr_result, _ = ocr_engine(test_pics[test_id])
-    end_time = time.time()
-    elapsed_time = end_time - start_time
-    logger.info(colored(f"OCR耗时: {elapsed_time:.2f}秒", "green"))
-    logger.debug(colored(f"文本框数量:{len(rapid_ocr_result)}", "green"))
-
-    text_lines = []
-    if rapid_ocr_result is None:
-        rapid_ocr_result = []
-    for line in rapid_ocr_result:
-        text_line = create_textline_from_data(line)
-        text_lines.append(text_line)
-    markdown_start = polygon_to_markdown(text_lines)
-    logger.info(colored(f"OCR-result:\n{markdown_start}", "green"))
 
     markdown_start = perform_ocr(ocr_engine, test_pics[test_id])
     logger.info(colored(f"OCR-result:\n{markdown_start}", "green"))
